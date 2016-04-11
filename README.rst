@@ -10,9 +10,6 @@ Install
 Usage
 -----
 
-Settings
-^^^^^^^^
-
 .. code:: python
 
 	# settings.py
