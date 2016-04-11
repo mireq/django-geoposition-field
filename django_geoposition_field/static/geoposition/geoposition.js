@@ -79,14 +79,25 @@ var createMap = function(opts) {
 	};
 	ol.inherits(ClearControl, ol.control.Control);
 
+	var lng = parseFloat(opts.lngInput.value, 10);
+	var lat = parseFloat(opts.latInput.value, 10);
+
+	var viewSettings = {
+		center: ol.proj.fromLonLat([19.78, 48.65]),
+		zoom: 7
+	};
+	if (lng && lat) {
+		viewSettings = {
+			center: ol.proj.fromLonLat([lng, lat]),
+			zoom: 13
+		};
+
+	}
 
 	var map = new ol.Map({
 		layers: [raster],
 		target: mapElement,
-		view: new ol.View({
-			center: ol.proj.fromLonLat([19.78, 48.65]),
-			zoom: 7
-		}),
+		view: new ol.View(viewSettings),
 		controls: ol.control.defaults({
 			attributionOptions: ({
 				collapsible: false
@@ -129,8 +140,6 @@ var createMap = function(opts) {
 		opts.latInput.value = coord[1];
 	});
 
-	var lng = parseFloat(opts.lngInput.value, 10);
-	var lat = parseFloat(opts.latInput.value, 10);
 	if (lng && lat) {
 		var coord = ol.proj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857');
 		var feature = new ol.Feature({
