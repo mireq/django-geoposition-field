@@ -10,12 +10,12 @@ from django.utils.safestring import mark_safe
 class GeopositionWidget(forms.MultiWidget):
 	class Media:
 		js = (
-			'http://openlayers.org/en/v3.15.1/build/ol.js',
+			'vendor/openlayers/ol.js',
 			'geoposition/geoposition.js',
 		)
 		css = {
 			'screen': (
-				'http://openlayers.org/en/v3.15.1/css/ol.css',
+				'vendor/openlayers/ol.css',
 				'geoposition/geoposition.css',
 			)
 		}
