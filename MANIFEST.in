@@ -1,0 +1,6 @@
+include LICENSE
+include README.rst
+include django_geoposition_field/static/geoposition/*
+include django_geoposition_field/templates/geoposition/widgets/*.html
+include django_geoposition_field/locale/*/LC_MESSAGES/django.mo
+include django_geoposition_field/locale/*/LC_MESSAGES/django.po
