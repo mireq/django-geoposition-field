@@ -19,6 +19,7 @@ var createWidgets = function() {
 		var geoposition = geopositions[i];
 		createWidget(geoposition);
 	}
+	window._geopositions = [];
 };
 
 var createWidget = function(opts) {
