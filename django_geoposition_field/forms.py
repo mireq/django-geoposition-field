@@ -30,5 +30,5 @@ class GeopositionField(forms.MultiValueField):
 
 	def compress(self, value_list):
 		if value_list:
-			return value_list
+			return '{0},{1}'.format(*value_list)
 		return ''
