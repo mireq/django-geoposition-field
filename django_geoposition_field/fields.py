@@ -39,6 +39,8 @@ class GeopositionField(models.Field):
 	def get_prep_value(self, value):
 		if not value:
 			return ''
+		elif isinstance(value, list):
+			return ','.join(str(v) for v in value)
 		else:
 			return str(value)
 
