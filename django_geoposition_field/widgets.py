@@ -40,8 +40,8 @@ class GeopositionWidget(forms.MultiWidget):
 			'longitude_widget': mark_safe(rendered_widgets[1]),
 		})
 
-	def render(self, name, value, attrs=None):
-		rendered = super(GeopositionWidget, self).render(name, value, attrs)
+	def render(self, name, value, *args, **kwargs):
+		rendered = super(GeopositionWidget, self).render(name, value, *args, **kwargs)
 		return render_to_string('geoposition/widgets/geoposition_container.html', {
 			'widget': mark_safe(rendered),
 			'name': name,
