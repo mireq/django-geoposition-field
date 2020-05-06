@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.template.loader import render_to_string
-from django.utils import six
 from django.utils.safestring import mark_safe
 
 
@@ -28,7 +27,7 @@ class GeopositionWidget(forms.MultiWidget):
 		super(GeopositionWidget, self).__init__(widgets, attrs)
 
 	def decompress(self, value):
-		if isinstance(value, six.text_type):
+		if isinstance(value, str):
 			return value.rsplit(',')
 		if value:
 			return [value.latitude, value.longitude]
