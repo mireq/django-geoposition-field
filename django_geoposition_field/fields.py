@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.core.validators import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -17,7 +15,7 @@ class GeopositionField(models.Field):
 
 	def __init__(self, *args, **kwargs):
 		kwargs['max_length'] = 100
-		super(GeopositionField, self).__init__(*args, **kwargs)
+		super().__init__(*args, **kwargs)
 
 	def get_internal_type(self):
 		return 'CharField'
@@ -49,4 +47,4 @@ class GeopositionField(models.Field):
 			'form_class': GeopositionFormField
 		}
 		defaults.update(kwargs)
-		return super(GeopositionField, self).formfield(**defaults)
+		return super().formfield(**defaults)

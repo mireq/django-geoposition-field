@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django import forms
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -24,7 +22,7 @@ class GeopositionWidget(forms.MultiWidget):
 			forms.TextInput(),
 			forms.TextInput(),
 		)
-		super(GeopositionWidget, self).__init__(widgets, attrs)
+		super().__init__(widgets, attrs)
 
 	def decompress(self, value):
 		if isinstance(value, str):
@@ -40,7 +38,7 @@ class GeopositionWidget(forms.MultiWidget):
 		})
 
 	def render(self, name, value, *args, **kwargs):
-		rendered = super(GeopositionWidget, self).render(name, value, *args, **kwargs)
+		rendered = super().render(name, value, *args, **kwargs)
 		return render_to_string('geoposition/widgets/geoposition_container.html', {
 			'widget': mark_safe(rendered),
 			'name': name,

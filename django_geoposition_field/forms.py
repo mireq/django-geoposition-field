@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -21,7 +19,7 @@ class GeopositionField(forms.MultiValueField):
 		)
 		if 'initial' in kwargs:
 			kwargs['initial'] = Geoposition(*kwargs['initial'].split(','))
-		super(GeopositionField, self).__init__(fields, **kwargs)
+		super().__init__(fields, **kwargs)
 
 	def widget_attrs(self, widget):
 		classes = widget.attrs.get('class', '').split()
