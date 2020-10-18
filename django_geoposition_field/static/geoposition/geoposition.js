@@ -1,28 +1,37 @@
 (function() {
 
-var onLoad = function(callback) {
+function bindEvent(element, name, fn) {
+	if (document.addEventListener) {
+		element.addEventListener(name, fn, false);
+	}
+	else {
+		element.attachEvent('on' + name, fn);
+	}
+}
+
+function onLoad(callback) {
 	if (document.body) {
 		callback({memo: document.body});
-		window._utils.bindEvent(document.body, 'contentloaded', callback);
+		bindEvent(document.body, 'contentloaded', callback);
 	}
 	else {
 		document.addEventListener("DOMContentLoaded", function(event) {
 			callback({memo: document.body});
-			window._utils.bindEvent(document.body, 'contentloaded', callback);
+			bindEvent(document.body, 'contentloaded', callback);
 		});
 	}
-};
+}
 
-var createWidgets = function() {
+function createWidgets() {
 	var geopositions = window._geopositions || [];
 	for (var i = 0, leni = geopositions.length; i < leni; i++) {
 		var geoposition = geopositions[i];
 		createWidget(geoposition);
 	}
 	window._geopositions = [];
-};
+}
 
-var createWidget = function(opts) {
+function createWidget(opts) {
 	var name = opts.name;
 	var container = document.getElementById('id_' + name);
 	var widgetContainer = document.getElementById('widget_' + name);
@@ -37,9 +46,9 @@ var createWidget = function(opts) {
 	});
 
 	widgetContainer.style.display = 'none';
-};
+}
 
-var createMap = function(opts) {
+function createMap(opts) {
 	var mapElement = document.createElement('DIV');
 	mapElement.style.width = '100%';
 	mapElement.style.height = '100%';
@@ -148,7 +157,7 @@ var createMap = function(opts) {
 		});
 		features.extend([feature]);
 	}
-};
+}
 
 onLoad(createWidgets);
 
