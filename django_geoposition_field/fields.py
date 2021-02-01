@@ -48,3 +48,9 @@ class GeopositionField(models.Field):
 		}
 		defaults.update(kwargs)
 		return super().formfield(**defaults)
+
+	def deconstruct(self):
+		name, path, args, kwargs = super().deconstruct()
+		if kwargs.get("max_length") == 100:
+			del kwargs['max_length']
+		return name, path, args, kwargs
