@@ -1,5 +1,15 @@
 (function() {
 
+var eventClasses = {
+	click: MouseEvent
+};
+function triggerEvent(element, name, memo, bubbles) {
+	var cls = eventClasses[name] || Event;
+	var event = new cls(name, {bubbles: bubbles === false ? false : true, cancelable: true});
+	event.memo = memo || { };
+	element.dispatchEvent(event);
+}
+
 function bindEvent(element, name, fn) {
 	if (document.addEventListener) {
 		element.addEventListener(name, fn, false);
@@ -101,7 +111,6 @@ function createMap(opts) {
 			center: ol.proj.fromLonLat([lng, lat]),
 			zoom: 13
 		};
-
 	}
 
 	var map = new ol.Map({
@@ -138,25 +147,37 @@ function createMap(opts) {
 	});
 	featureOverlay.setMap(map);
 
-	map.on('click', function(e) {
-		var feature = new ol.Feature({
-			geometry: new ol.geom.Point(e.coordinate)
-		});
-		features.clear();
-		features.extend([feature]);
-
-		var coord = ol.proj.transform(e.coordinate, 'EPSG:3857', 'EPSG:4326');
-		opts.lngInput.value = coord[0];
-		opts.latInput.value = coord[1];
-	});
-
-	if (lng && lat) {
+	function setMapCoordinates(lng, lat) {
 		var coord = ol.proj.transform([lng, lat], 'EPSG:4326', 'EPSG:3857');
 		var feature = new ol.Feature({
 			geometry: new ol.geom.Point(coord)
 		});
+		features.clear();
 		features.extend([feature]);
 	}
+
+	map.on('click', function(e) {
+		var coord = ol.proj.transform(e.coordinate, 'EPSG:3857', 'EPSG:4326');
+		opts.lngInput.value = coord[0];
+		opts.latInput.value = coord[1];
+		triggerEvent(opts.lngInput, 'change');
+		triggerEvent(opts.latInput, 'change');
+	});
+
+	if (!isNaN(lng) && !isNaN(lat)) {
+		setMapCoordinates(lng, lat);
+	}
+
+	function onPositionChanged() {
+		var lng = parseFloat(opts.lngInput.value, 10);
+		var lat = parseFloat(opts.latInput.value, 10);
+		if (!isNaN(lng) && !isNaN(lat)) {
+			setMapCoordinates(lng, lat);
+		}
+	}
+
+	bindEvent(opts.lngInput, 'change', onPositionChanged);
+	bindEvent(opts.latInput, 'change', onPositionChanged);
 }
 
 onLoad(createWidgets);
