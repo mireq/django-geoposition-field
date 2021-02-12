@@ -12,6 +12,9 @@ class Geoposition(object):
 	def __str__(self):
 		return "%s,%s" % (str(self.latitude), str(self.longitude))
 
+	def __repr__(self):
+		return str(self)
+
 	def __eq__(self, other):
 		return isinstance(other, self.__class__) and self.latitude == other.latitude and self.longitude == other.longitude
 
