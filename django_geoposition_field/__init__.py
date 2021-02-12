@@ -3,6 +3,8 @@ from decimal import Decimal
 
 
 class Geoposition(object):
+	__slots__ = ['latitude', 'longitude']
+
 	def __init__(self, latitude, longitude):
 		self.latitude = Decimal(str(latitude))
 		self.longitude = Decimal(str(longitude))
