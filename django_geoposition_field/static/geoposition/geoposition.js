@@ -49,19 +49,32 @@ function createWidget(opts) {
 	var latInput = document.getElementById('id_' + name + '_0');
 	var lngInput = document.getElementById('id_' + name + '_1');
 
-	createMap({
+	var mapElement = createMap({
 		container: container,
+		widgetContainer: widgetContainer,
 		latInput: latInput,
 		lngInput: lngInput
 	});
+
+	var switchBtn = document.createElement('button');
+	switchBtn.className = 'button';
+	switchBtn.innerHTML = '✓';
+	widgetContainer.appendChild(switchBtn);
+
+	var switchToMap = function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		mapElement.style.display = 'block';
+		widgetContainer.style.display = 'none';
+	};
+	switchBtn.addEventListener('click', switchToMap, false);
 
 	widgetContainer.style.display = 'none';
 }
 
 function createMap(opts) {
 	var mapElement = document.createElement('DIV');
-	mapElement.style.width = '100%';
-	mapElement.style.height = '100%';
+	mapElement.className = 'geoposition-widget-map';
 	opts.container.appendChild(mapElement);
 
 	var raster = new ol.layer.Tile({
@@ -70,11 +83,14 @@ function createMap(opts) {
 	});
 
 
-	var ClearControl = function(opt_options) {
+	var ExtraControls = function(opt_options) {
 		var options = opt_options || {};
 
-		var button = document.createElement('button');
-		button.innerHTML = 'x';
+		var clearButton = document.createElement('button');
+		clearButton.innerHTML = '×';
+
+		var coordinateButton = document.createElement('button');
+		coordinateButton.innerHTML = '✎';
 
 		var this_ = this;
 		var handleClear = function(event) {
@@ -85,19 +101,29 @@ function createMap(opts) {
 			event.stopPropagation();
 		};
 
-		button.addEventListener('click', handleClear, false);
-		button.addEventListener('touchstart', handleClear, false);
+		var handleSwitchToCoordinates = function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			mapElement.style.display = 'none';
+			opts.widgetContainer.style.display = 'flex';
+		};
+
+		clearButton.addEventListener('click', handleClear, false);
+		clearButton.addEventListener('touchstart', handleClear, false);
+
+		coordinateButton.addEventListener('click', handleSwitchToCoordinates, false);
 
 		var element = document.createElement('div');
-		element.className = 'clear-position ol-unselectable ol-control';
-		element.appendChild(button);
+		element.className = 'extra-controls ol-unselectable ol-control';
+		element.appendChild(clearButton);
+		element.appendChild(coordinateButton);
 
 		ol.control.Control.call(this, {
 			element: element,
 			target: options.target
 		});
 	};
-	ol.inherits(ClearControl, ol.control.Control);
+	ol.inherits(ExtraControls, ol.control.Control);
 
 	var lng = parseFloat(opts.lngInput.value, 10);
 	var lat = parseFloat(opts.latInput.value, 10);
@@ -122,7 +148,7 @@ function createMap(opts) {
 				collapsible: false
 			})
 		}).extend([
-			new ClearControl()
+			new ExtraControls()
 		])
 	});
 
@@ -178,6 +204,8 @@ function createMap(opts) {
 
 	bindEvent(opts.lngInput, 'change', onPositionChanged);
 	bindEvent(opts.latInput, 'change', onPositionChanged);
+
+	return mapElement;
 }
 
 onLoad(createWidgets);

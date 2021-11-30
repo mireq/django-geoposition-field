@@ -1,10 +1,23 @@
 .geoposition-widget {
 	width: 100%;
-	height: 400px;
 	clear: both;
 }
 
-.clear-position {
+.geoposition-widget-map {
+	width: 100%;
+	height: 400px;
+}
+
+.geoposition-widget > div:first-child {
+	display: flex;
+}
+
+.geoposition-widget > div:first-child input {
+	margin-right: .5em;
+	flex: 1 1 auto;
+}
+
+.extra-controls {
 	top: 65px;
 	left: .5em;
 }
