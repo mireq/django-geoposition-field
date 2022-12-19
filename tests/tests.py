@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-
-from django.core.paginator import InvalidPage
-from django.db.models import F
-from django.http import Http404
 from django.test import TestCase
-from django.urls import reverse
-from django.utils import timezone
 
-from .models import Address
+from django_geoposition_field import Geoposition
 
 
-class TestGeopositionField(TestCase):
-	def test_to_pyton(self):
-		print("ok")
+class TestGeopositionObject(TestCase):
+	def test_geoposition(self):
+		position = Geoposition(1, 2)
+		equals_position = Geoposition(1, 2)
+		other_position = Geoposition(1, 3)
+		self.assertEqual('1,2', str(position))
+		self.assertEqual('Geoposition(1, 2)', repr(position))
+		self.assertEqual(position, equals_position)
+		self.assertNotEqual(position, other_position)

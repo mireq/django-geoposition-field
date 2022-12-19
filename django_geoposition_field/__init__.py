@@ -10,10 +10,10 @@ class Geoposition(object):
 		self.longitude = Decimal(str(longitude))
 
 	def __str__(self):
-		return "%s,%s" % (str(self.latitude), str(self.longitude))
+		return f'{self.latitude},{self.longitude}'
 
 	def __repr__(self):
-		return str(self)
+		return f'{self.__class__.__name__}({self.latitude}, {self.longitude})'
 
 	def __eq__(self, other):
 		return isinstance(other, self.__class__) and self.latitude == other.latitude and self.longitude == other.longitude
