@@ -1,0 +1,11 @@
+/django_geoposition_field.egg-info
+.envrc
+*~
+*.pyc
+.ropeproject
+.coverage
+.tox
+build
+/dist
+/htmlcov
+/coverage.xml
