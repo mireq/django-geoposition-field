@@ -129,8 +129,8 @@ function createMap(opts) {
 	var lat = parseFloat(opts.latInput.value, 10);
 
 	var viewSettings = {
-		center: ol.proj.fromLonLat([19.78, 48.65]),
-		zoom: 7
+		center: ol.proj.fromLonLat([0, 0]),
+		zoom: 2
 	};
 	if (lng && lat) {
 		viewSettings = {
