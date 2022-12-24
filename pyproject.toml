@@ -38,6 +38,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = ["django_geoposition_field"]
+include-package-data = true
 
 [tool.setuptools_scm]
 
