@@ -29,13 +29,7 @@ class GeopositionWidget(forms.MultiWidget):
 			return value.rsplit(',')
 		if value:
 			return [value.latitude, value.longitude]
-		return [None,None]
-
-	def format_output(self, rendered_widgets):
-		return render_to_string('geoposition/widgets/geoposition.html', {
-			'latitude_widget': mark_safe(rendered_widgets[0]),
-			'longitude_widget': mark_safe(rendered_widgets[1]),
-		})
+		return [None, None]
 
 	def render(self, name, value, *args, **kwargs):
 		rendered = super().render(name, value, *args, **kwargs)

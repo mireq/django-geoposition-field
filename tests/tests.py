@@ -75,8 +75,8 @@ class TestGeopositionForm(TestCase):
 		address = Address(location=Geoposition('1.5', '2.5'))
 		form = AddressForm(instance=address)
 		form_str = str(form)
-		self.assertIn('1.5', form_str)
-		self.assertIn('2.5', form_str)
+		self.assertIn('"1.5"', form_str)
+		self.assertIn('"2.5"', form_str)
 		self.assertEqual(D('1.5'), form.initial['location'].latitude)
 		self.assertEqual(D('2.5'), form.initial['location'].longitude)
 
@@ -87,4 +87,18 @@ class TestGeopositionForm(TestCase):
 		address = form.save(commit=True)
 		address.refresh_from_db()
 		self.assertIsNone(address.location)
-		print(str(form))
+
+	def test_decompress(self):
+		form = AddressForm(initial={'location': '1.5,2.5'})
+		form_str = str(form)
+		self.assertIn('"1.5"', form_str)
+		self.assertIn('"2.5"', form_str)
+
+		form = AddressForm(initial={'location': Geoposition('1.5', '2.5')})
+		form_str = str(form)
+		self.assertIn('"1.5"', form_str)
+		self.assertIn('"2.5"', form_str)
+
+		form = AddressForm(initial={'location': None})
+		form_str = str(form)
+		self.assertNotIn('value=', form_str)
