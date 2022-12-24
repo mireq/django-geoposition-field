@@ -1,0 +1,47 @@
+[project]
+name = "django_geoposition_field"
+description = "Django simple geoposition field with OSM widget"
+readme = "README.rst"
+requires-python = ">=3.7"
+keywords = ["geoposition", "widget", "django", "field"]
+license = {text = "MIT"}
+dynamic = ["version"]
+authors = [
+	{ name = "Miroslav Bendík", email = "miroslav.bendik@gmail.com" }
+]
+classifiers = [
+	"Programming Language :: Python :: 3",
+]
+dependencies = [
+	"django",
+]
+
+[project.urls]
+homepage = "https://github.com/mireq/django-geoposition-field"
+documentation = "https://github.com/mireq/django-geoposition-field"
+repository = "https://github.com/mireq/django-geoposition-field"
+changelog = "https://github.com/mireq/django-geoposition-field/blob/master/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+	"tox",
+	"pylint",
+	"pre-commit",
+	"bump2version",
+	"commitizen",
+	"django_jinja"
+]
+
+[build-system]
+requires = ["setuptools", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["django_geoposition_field"]
+
+[tool.setuptools_scm]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.0"
+tag_format = "$version"
