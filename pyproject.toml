@@ -37,8 +37,7 @@ requires = ["setuptools", "setuptools-scm", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["django_geoposition_field"]
-include-package-data = true
+packages = ["django_geoposition_field", "django_geoposition_field.static.geoposition", "django_geoposition_field.static.vendor.openlayers", "django_geoposition_field.templates.geoposition.widgets"]
 
 [tool.setuptools_scm]
 
