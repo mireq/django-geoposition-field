@@ -43,5 +43,5 @@ packages = ["django_geoposition_field", "django_geoposition_field.static.geoposi
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.0.1"
+version = "1.0.2"
 tag_format = "$version"
