@@ -1,3 +1,9 @@
+## 1.0.3 (2026-04-09)
+
+### Fix
+
+- Don't throw exception when validating invalid position
+
 ## 1.0.2 (2022-12-31)
 
 ### Fix
