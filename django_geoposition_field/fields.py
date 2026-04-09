@@ -51,8 +51,11 @@ class GeopositionField(models.Field):
 	def to_python(self, value):
 		if not value:
 			return None
-		latitude, longitude = value.split(",")
-		return Geoposition(latitude, longitude)
+		try:
+			latitude, longitude = value.split(",")
+			return Geoposition(latitude, longitude)
+		except Exception: #pylint: disable=broad-except
+			return None
 
 	def value_to_string(self, obj):
 		value = self.value_from_object(obj)
