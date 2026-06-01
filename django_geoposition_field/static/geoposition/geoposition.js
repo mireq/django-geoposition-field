@@ -79,7 +79,13 @@ function createMap(opts) {
 
 	var raster = new ol.layer.Tile({
 		//source: new ol.source.MapQuest({layer: 'sat'})
-		source: new ol.source.OSM()
+		source: new ol.source.OSM({
+			tileLoadFunction: function(imageTile, src) {
+				var image = imageTile.getImage();
+				image.referrerPolicy = 'strict-origin-when-cross-origin';
+				image.src = src;
+			}
+		})
 	});
 
 
