@@ -1,3 +1,9 @@
+## 1.0.4 (2026-06-01)
+
+### Feat
+
+- Added referrerPolicy to prevent overlays
+
 ## 1.0.3 (2026-04-09)
 
 ### Fix
